@@ -188,7 +188,6 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time) {
         gpio_set_level(IN1, 0);
         gpio_set_level(IN2, 1);
     }
-    // gpio_set_level(IN2, !gpio_get_level(IN1));
 
     if (msg.pwm_right < 0){
         gpio_set_level(IN3, 1);
@@ -198,7 +197,6 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time) {
         gpio_set_level(IN3, 0);
         gpio_set_level(IN4, 1);
     }
-    // gpio_set_level(IN4, !gpio_get_level(IN3));
 
     ledc_set_duty(PWM_MODE, LEFT_PWM, abs(msg.pwm_left));
     ledc_set_duty(PWM_MODE, RIGHT_PWM, abs(msg.pwm_right));
@@ -214,14 +212,6 @@ flash && build agent:
 	ros2 run micro_ros_setup flash_firmware.sh && ros2 run micro_ros_setup build_agent.sh
 source && run agent:
 	source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-
-    ros2 run micro_ros_setup configure_firmware.sh pwm_subscriber -t udp -i 192.168.1.102 -p 8888 && ros2 run micro_ros_setup build_firmware.sh && ros2 run micro_ros_setup flash_firmware.sh && ros2 run micro_ros_setup build_agent.sh && source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-
-New wi-fi:
-    ros2 run micro_ros_setup configure_firmware.sh pwm_subscriber -t udp -i 192.168.26.203 -p 8888 && ros2 run micro_ros_setup build_firmware.sh menuconfig    
-set credentials, then:
-    ros2 run micro_ros_setup build_firmware.sh && ros2 run micro_ros_setup flash_firmware.sh && ros2 run micro_ros_setup build_agent.sh && source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-
 */
 int cap_int(int value){
     if (value > 4095){
