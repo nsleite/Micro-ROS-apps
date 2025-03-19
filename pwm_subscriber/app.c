@@ -164,8 +164,6 @@ void setupRos() {
 
 // We don't really need the callback, because msg is set anyway
 void empty_callback(const void *msgin) {
-//    const geometry_msgs__msg__Twist *msg = (const geometry_msgs__msg__Twist *) msgin;
-//    printf("Message received: %f %f\n", msg->linear.x, msg->angular.z);
 }
 
 // Each frame, check msg data and set PWM channels accordingly
@@ -207,11 +205,11 @@ void timer_callback(rcl_timer_t *timer, int64_t last_call_time) {
 
 /*
 config && build firmware:
-	ros2 run micro_ros_setup configure_firmware.sh pwm_subscriber -t udp -i 192.168.1.102 -p 8888 && ros2 run micro_ros_setup build_firmware.sh
+	ros2 run micro_ros_setup configure_firmware.sh pwm_subscriber -t udp -i <ip> -p <port> && ros2 run micro_ros_setup build_firmware.sh
 flash && build agent:
 	ros2 run micro_ros_setup flash_firmware.sh && ros2 run micro_ros_setup build_agent.sh
 source && run agent:
-	source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+	source install/local_setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port <port>
 */
 int cap_int(int value){
     if (value > 4095){
